@@ -28,6 +28,15 @@ async def get_stats(ctx: interactions.CommandContext):
     XP: {speler.xp}
     """)
 
+@client.command(
+    name="maakgevecht",
+    description="vind een monster om tegen te vechten",
+    scope=GUILD
+)
+async def maak_gevecht(ctx: interactions.CommandContext):
+    gevecht = spel.maak_gevecht(ctx.member.id)
+    await ctx.send(gevecht)
+
 @client.event
 async def on_ready(): # Functie bij verbinding bot met server
     print(f'Discord bot is online!') # Console log
