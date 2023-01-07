@@ -6,8 +6,8 @@ class Monster:
         self.attack = attack
         self.hp = hp
     
-    def attack(self):
+    def val_aan(self):
         return self.attack + randrange(2)
 
-    def take_damage(self, damage):
-        self.hp -= damage
+    def ontvang_schade(self, schade):
+        self.hp -= schade

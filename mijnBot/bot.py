@@ -3,6 +3,7 @@ import os
 import interactions # Python library for Discord interactions
 from dotenv import load_dotenv
 from spel import Spel
+from gevecht import Resultaat
 
 # import (py) = require (js)
 
@@ -20,7 +21,7 @@ GUILD = os.getenv('GUILD_ID')
     scope=GUILD,
 )
 async def get_stats(ctx: interactions.CommandContext):
-    speler = spel.get_speler(ctx.member.id)
+    speler = spel.get_speler(str(ctx.member.id))
     await ctx.send(f"""{ctx.member.user.username}, hier zijn jouw speler stats:
     
     Attack: {speler.attack}
@@ -34,8 +35,17 @@ async def get_stats(ctx: interactions.CommandContext):
     scope=GUILD
 )
 async def maak_gevecht(ctx: interactions.CommandContext):
-    gevecht = spel.maak_gevecht(ctx.member.id)
+    gevecht = spel.maak_gevecht(str(ctx.member.id))
     await ctx.send(gevecht)
+
+@client.command(
+    name="aanval",
+    description="val aan!",
+    scope=GUILD 
+)
+async def aanval(ctx: interactions.CommandContext):
+    resultaat_bericht = spel.attack(str(ctx.member.id))
+    await ctx.send(resultaat_bericht)
 
 @client.event
 async def on_ready(): # Functie bij verbinding bot met server
